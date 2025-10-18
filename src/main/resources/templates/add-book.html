@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="base :: head">
+</head>
+<body>
+<header th:replace="base :: header"></header>
+
+<main class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0"><i class="fas fa-plus-circle me-2"></i>Добавить новую книгу</h4>
+                </div>
+
+                <div class="card-body">
+                    <form th:action="@{/books}" method="post">
+                        <div class="mb-3">
+                            <label for="title" class="form-label">Название книги *</label>
+                            <input type="text" class="form-control" id="title" name="title"
+                                   required th:classappend="${titleError != null} ? 'is-invalid'">
+                            <div th:if="${titleError}" class="invalid-feedback" th:text="${titleError}"></div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="authorFirstName" class="form-label">Имя автора *</label>
+                                    <input type="text" class="form-control" id="authorFirstName"
+                                           name="authorFirstName" required>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="authorSecondName" class="form-label">Отчество</label>
+                                    <input type="text" class="form-control" id="authorSecondName"
+                                           name="authorSecondName">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="authorLastName" class="form-label">Фамилия автора *</label>
+                                    <input type="text" class="form-control" id="authorLastName"
+                                           name="authorLastName" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="genreType" class="form-label">Жанр *</label>
+                                    <input type="text" class="form-control" id="genreType"
+                                           name="genreType" required placeholder="Роман, Фантастика, Детектив...">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="year" class="form-label">Год издания *</label>
+                                    <input type="number" class="form-control" id="year" name="year"
+                                           required min="0" max="2035">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="location" class="form-label">Место издания (страна/город) *</label>
+                            <input type="text" class="form-control" id="location" name="location"
+                                   required placeholder="Россия, Москва, США, Нью-Йорк, Германия, Берлин...">
+                            <div class="form-text">Укажите страну и/или город издания книги</div>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a th:href="@{/books}" class="btn btn-outline-secondary me-md-2">
+                                <i class="fas fa-arrow-left me-1"></i>Назад
+                            </a>
+                            <button type="submit" class="btn btn-add text-white">
+                                <i class="fas fa-save me-1"></i>Добавить книгу
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer th:replace="base :: footer"></footer>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const currentYear = new Date().getFullYear();
+        const maxYear = currentYear + 10;
+        document.getElementById('year').setAttribute('max', maxYear);
+    });
+</script>
+</body>
+</html>
